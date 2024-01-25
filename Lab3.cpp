@@ -16,12 +16,25 @@ int main() {
     for (int i = 0; i < empNum; i++) {
         string name = "", dep = "", pos = "";
         int idNum = 0;
-        cout << "Enter the employee's name, department, position, and ID Number: ";
-        cin >> name >> dep >> pos >> idNum;
+        cout << "Enter the employee's name: ";
+        getline(cin, name);
+        cin.ignore();
+        cout << endl;
+        cout << "Enter the employee's department: ";
+        cin >> dep;
+        cout << endl;
+        cout << "Enter the employee's position: ";
+        cin >> pos;
+        cout << endl;
+        cout << "Enter the employee's ID number: ";
+        cin >> idNum;
+        cout << endl;
         array[i].setName(name);
         array[i].setDep(dep);
         array[i].setPos(pos);
         array[i].setID(idNum);
+    }
+    for (int i = 0; i < empNum; i++) {       
         cout << array[i].getName() << " " << array[i].getDep() << " " << array[i].getPos() << " " << array[i].getID() << endl;
     }
 }

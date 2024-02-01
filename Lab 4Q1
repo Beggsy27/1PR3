@@ -1,0 +1,85 @@
+main:
+// Nathan Beggs 400536751
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include "Weather.h"
+
+using namespace std;
+
+int main()
+{
+    fstream outputFile;
+    outputFile.open("weather.txt");
+    string month;
+    int highestTemp, lowestTemp, highPosition, lowPosition, tempHigh = -10, tempLow = 150;
+    double totalRain, annualRain = 0;
+
+    Weather Object[12];
+
+    for (int i = 0; i < 12; i++) {
+        outputFile >> month >> highestTemp >> lowestTemp >> totalRain;
+        Object[i] = Weather(month, highestTemp, lowestTemp, totalRain);
+        annualRain += Object[i].getTotalRain();
+        
+        if (Object[i].getHighestTemp() > tempHigh) {
+            tempHigh = Object[i].getHighestTemp();
+            highPosition = i;
+        }
+        if (Object[i].getLowestTemp() < tempLow) {
+            tempLow = Object[i].getLowestTemp();
+            lowPosition = i;
+        }
+    }
+    
+    cout << "Total Rainfall for the year: " << annualRain << endl;
+    cout << "Average Rainfall per month: " << (annualRain / 12) << endl;
+    cout << "Lowest Temperature is " << tempLow << " in " << Object[lowPosition].getMonth() << endl;
+    cout << "Highest Temperature is " << tempHigh << " in " << Object[highPosition].getMonth() << endl;
+}
+
+Weather.h:
+#pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Weather {
+private:
+	string month;
+	int highestTemp;
+	int lowestTemp;
+	double totalRain;
+public:
+	Weather();
+	Weather(string m, int h, int l, double t);
+	~Weather();
+
+	string getMonth() { return month; };
+	int getHighestTemp() { return highestTemp; };
+	int getLowestTemp() { return lowestTemp; };
+	double getTotalRain() { return totalRain; };
+};
+
+Weather.cpp:
+#include "Weather.h"
+
+using namespace std;
+
+Weather::Weather() {
+	month = "";
+	highestTemp = 0;
+	lowestTemp = 0;
+	totalRain = 0;
+};
+Weather::Weather(string m, int h, int l, double t) {
+	month = m;
+	highestTemp = h;
+	lowestTemp = l;
+	totalRain = t;
+
+};
+Weather::~Weather() {
+
+};
